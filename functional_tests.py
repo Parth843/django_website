@@ -1,5 +1,9 @@
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+
 import unittest
+import time
+
 
 # browser = webdriver.Firefox()
 
@@ -47,12 +51,37 @@ class NewVisitorsTest(unittest.TestCase):
 
         # User notices the page title and header mention to-do lists
         self.assertIn('To-Do', self.browser.title)
+        header_text = self.browser.find_element_by_tag_name('h1').text
+        self.assertIn('To-Do', header_text)
+        
+
+        #User is invited to enter a to-do item straight away
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        self.assertEqual(
+            inputbox.get_attribute('placeholder'),
+            'Enter a to-do item'
+        )
+
+        # User enters "Complete math homework"
+        inputbox.send_keys('Complete math homework')
+        #When user hits enter, page updates
+        #There is an item in the to-do list now
+        #1: Complete math homework
+        inputbox.send_keys(Keys.ENTER)
+        time.sleep(1)
+
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_element_by_tag_name('tr')
+        self.assertTrue(
+            any(row.text == '1: Complete math homework' for row in rows)
+        )
+
+        #There is still a text box inviting user to add another item
+        #She enters "Complete history homework"
+
         self.fail('Finish the test!')
 
-        # User is invited to enter a to-do item straight away
-        # User enters "Complete math homework"
-        # Web page displays:-
-        # "1: Complete math homework"
+        #The page updates again both items are in the list
         # User receives a link to visit the same web page
         # the to-do list is thus saved
 
