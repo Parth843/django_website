@@ -45,6 +45,11 @@ class NewVisitorsTest(unittest.TestCase):
     def tearDown(self):
         self.browser.quit()
 
+    def check_for_row_in_list_table(self, row_text):
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertIn(row_text, [row.text for row in rows])
+
     def test_can_start_a_list_and_retrive_it_later(self):
         # User goes to checkout the homepage of the app.
         self.browser.get(r'http://localhost:8000')
@@ -70,13 +75,15 @@ class NewVisitorsTest(unittest.TestCase):
         inputbox.send_keys(Keys.ENTER)
         time.sleep(1)
 
-        table = self.browser.find_element_by_id('id_list_table')
-        rows = table.find_elements_by_tag_name('tr')
+        # table = self.browser.find_element_by_id('id_list_table')
+        # rows = table.find_elements_by_tag_name('tr')
         # self.assertTrue(
         #     any(row.text == '1: Complete math homework' for row in rows),
         #     f"New to-do item did not appear in table. Contents were:\n{table.text}"
         # )
-        self.assertIn('1: Complete math homework', [row.text for row in rows])
+        # self.assertIn('1: Complete math homework', [row.text for row in rows])
+        self.check_for_row_in_list_table('1: Complete math homework')
+        self.check_for_row_in_list_table('2: Complete history homework')
 
         #There is still a text box inviting user to add another item
         #She enters "Complete history homework"
