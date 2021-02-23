@@ -72,10 +72,11 @@ class NewVisitorsTest(unittest.TestCase):
 
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
-        self.assertTrue(
-            any(row.text == '1: Complete math homework' for row in rows),
-            "New to-do item did not appear in table"
-        )
+        # self.assertTrue(
+        #     any(row.text == '1: Complete math homework' for row in rows),
+        #     f"New to-do item did not appear in table. Contents were:\n{table.text}"
+        # )
+        self.assertIn('1: Complete math homework', [row.text for row in rows])
 
         #There is still a text box inviting user to add another item
         #She enters "Complete history homework"
