@@ -83,10 +83,16 @@ class NewVisitorsTest(unittest.TestCase):
         # )
         # self.assertIn('1: Complete math homework', [row.text for row in rows])
         self.check_for_row_in_list_table('1: Complete math homework')
-        self.check_for_row_in_list_table('2: Complete history homework')
 
         #There is still a text box inviting user to add another item
         #She enters "Complete history homework"
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox.send_keys('Complete history homework')
+        inputbox.send_keys(Keys.ENTER)
+        time.sleep(1)
+
+        self.check_for_row_in_list_table('1: Complete math homework')
+        self.check_for_row_in_list_table('2: Complete history homework')
 
         self.fail('Finish the test!')
 
