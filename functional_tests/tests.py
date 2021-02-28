@@ -32,7 +32,7 @@ class NewVisitorsTest(LiveServerTestCase):
                     raise e
                 time.sleep(0.5)
 
-    def test_can_start_a_list_and_retrive_it_later(self):
+    def test_can_start_a_list_for_one_user(self):
         # User goes to checkout the homepage of the app.
         self.browser.get(self.live_server_url)
 
@@ -74,7 +74,7 @@ class NewVisitorsTest(LiveServerTestCase):
         self.wait_for_row_in_list_table('1: Complete math homework')
         self.wait_for_row_in_list_table('2: Complete history homework')
 
-        self.fail('Finish the test!')
+        #self.fail('Finish the test!')
 
         #The page updates again both items are in the list
         # User receives a link to visit the same web page
@@ -115,7 +115,7 @@ class NewVisitorsTest(LiveServerTestCase):
 
         #Francis gets his own unique url
         francis_list_url = self.browser.current_url
-        self.assertRegex(francis_list_url, '/list/.+')
+        self.assertRegex(francis_list_url, '/lists/.+')
         self.assertNotEqual(francis_list_url, edith_list_url)
 
         #Again there is no trace of Edith's list
