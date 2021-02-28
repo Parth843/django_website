@@ -69,7 +69,7 @@ class NewVisitorsTest(LiveServerTestCase):
         inputbox = self.browser.find_element_by_id('id_new_item')
         inputbox.send_keys('Complete history homework')
         inputbox.send_keys(Keys.ENTER)
-        time.sleep(1)
+        #time.sleep(1)
 
         self.wait_for_row_in_list_table('1: Complete math homework')
         self.wait_for_row_in_list_table('2: Complete history homework')
